@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+    <style>
+        .cinza {
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <a :href="site">Site</a>
+        <p :class="cor">entendendo a diretiva v-bind</p>
+        <input type="text" :placeholder=instrucaoDePreenchimento :value="valor">
+        <input type="checkbox" :checked = "check">
+    </div>
+    <script>
+        const vm = new Vue ({
+            el: '#app', // #para selecionar por id . para selecionar por class
+            data: {
+                site: 'https://www.google.com',
+                cor: 'cinza',
+                instrucaoDePreenchimento:'Placeholder - diretica v-bind',
+                valor: 'Entendendo a diretiva v-bind',
+                check: true,
+            },
+            methods: {
+                
+
+            }
+        }); // vm == vue model
+        console.log(vm);
+    </script>
+</body>
+</html>
