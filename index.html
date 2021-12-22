@@ -7,34 +7,53 @@
     <script src="./vue.js"></script>
     <title>Document</title>
     <style>
-        .cinza {
-            color: gray;
-        }
+       
     </style>
 </head>
 <body>
     <div id="app">
-        <a :href="site">Site</a>
-        <p :class="cor">entendendo a diretiva v-bind</p>
-        <input type="text" :placeholder=instrucaoDePreenchimento :value="valor">
-        <input type="checkbox" :checked = "check">
+        <a href="https://www.google.com.br" target="_blank" @click.prevent.once="previnirComportamentoPadrao()">link</a>
+        <br>
+        Mensagem: {{mensagem}}   
+        <br>
+        <button @click.once= "executarUmaVez()">Enviar</button> 
+        <br>
+        Cliques: {{cliques}}
+        <br>
+        <form @submit.prevent.once="previnirUmaVez()">
+            <button type="submit">Enviar</button>
+        </form>
+        <p>Formulário: {{formulario}}</p>
+        <hr>
+        <input type="text" @keyup="capturandoTeclas($event)">
+        Teclas: {{teclas}}
     </div>
     <script>
         const vm = new Vue ({
             el: '#app', // #para selecionar por id . para selecionar por class
             data: {
-                site: 'https://www.google.com',
-                cor: 'cinza',
-                instrucaoDePreenchimento:'Placeholder - diretica v-bind',
-                valor: 'Entendendo a diretiva v-bind',
-                check: true,
+                mensagem: "",
+                cliques: 0,
+                formulario: '',
+                teclas:'',
             },
             methods: {
-                
-
+                previnirComportamentoPadrao() {
+                    this.mensagem = "Comportamento padrão ativado"
+                },
+                executarUmaVez() {
+                    this.cliques++;
+                },
+                previnirUmaVez() {
+                    this.formulario = "previnindo o comportamento padrão";
+                },
+                capturandoTeclas(event) {
+                    if(event.key != 'Backspace' && event.key != 'Enter' && event.key != 'Shift' && event.key != 'Control' && event.key != 'Space') {
+                        this.teclas += event.key;
+                    }
+                },
             }
         }); // vm == vue model
-        console.log(vm);
     </script>
 </body>
 </html>
