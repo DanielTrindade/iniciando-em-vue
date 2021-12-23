@@ -12,46 +12,60 @@
 </head>
 <body>
     <div id="app">
-        <a href="https://www.google.com.br" target="_blank" @click.prevent.once="previnirComportamentoPadrao()">link</a>
-        <br>
-        Mensagem: {{mensagem}}   
-        <br>
-        <button @click.once= "executarUmaVez()">Enviar</button> 
-        <br>
-        Cliques: {{cliques}}
-        <br>
-        <form @submit.prevent.once="previnirUmaVez()">
-            <button type="submit">Enviar</button>
-        </form>
-        <p>Formulário: {{formulario}}</p>
+        <button @click="mudarEstado()">
+            <span v-if="!mostrarSaldo">Mostrar saldo</span>
+            <span v-if="mostrarSaldo">Esconder saldo</span>
+        </button>
+        <p>
+            Saldo: 
+            <span v-if="mostrarSaldo">R$ {{saldo}}</span>
+        </p>
         <hr>
-        <input type="text" @keyup="capturandoTeclas($event)">
-        Teclas: {{teclas}}
+        Idade: <input type="text" id="inputIdade" @blur="mudarIdade()">
+        <p v-if="idade < 18">Menor de idade</p>
+        <p v-else>Maior de idade</p>
+        <hr>
+        Nota: <input type="text" id="inputNota">
+        <br><br>
+        Faltas: <input type="text" id="inputFaltas">
+        <br><br>
+        <button @click="preencherDadosAluno()">Enviar dados</button>
+        <div v-if="verificou">
+            <p v-if="nota < 5 && faltas <= 10">Reprovado por Nota</p>
+            <p v-else-if="faltas > 10">Reprovado por falta</p>
+            <p v-else-if="nota >= 5 && faltas <= 10">Aprovado</p>
+        </div>
+        <div v-else>
+            Digite o valor da nota e quantidade de Faltas do aluno
+        </div>
+        
     </div>
     <script>
         const vm = new Vue ({
             el: '#app', // #para selecionar por id . para selecionar por class
             data: {
-                mensagem: "",
-                cliques: 0,
-                formulario: '',
-                teclas:'',
+                saldo: 550.15,
+                mostrarSaldo: false,
+                idade: 0,
+                nota: 0.0,
+                faltas:0,
+                verificou: false,
             },
             methods: {
-                previnirComportamentoPadrao() {
-                    this.mensagem = "Comportamento padrão ativado"
+                mudarEstado() {
+                    this.mostrarSaldo = !this.mostrarSaldo;
                 },
-                executarUmaVez() {
-                    this.cliques++;
+                mudarIdade() {
+                    this.idade = inputIdade.value;
                 },
-                previnirUmaVez() {
-                    this.formulario = "previnindo o comportamento padrão";
+                mudarNota() {
+                    this.nota = inputNota.value;
                 },
-                capturandoTeclas(event) {
-                    if(event.key != 'Backspace' && event.key != 'Enter' && event.key != 'Shift' && event.key != 'Control' && event.key != 'Space') {
-                        this.teclas += event.key;
-                    }
-                },
+                preencherDadosAluno() {
+                    this.verificou = true;
+                    this.nota = inputNota.value;
+                    this.faltas = inputFaltas.value;
+                }
             }
         }); // vm == vue model
     </script>
