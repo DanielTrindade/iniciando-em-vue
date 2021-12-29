@@ -12,20 +12,68 @@
 </head>
 <body>
     <div id="app">
-        <template v-if="saudacao">
-            <h1>Boa-vindas</h1>
-            <p>Conteúdo a tag <strong> template</strong></p>
-        </template> 
+        <h4>Adicionar paciente</h4>
+        <form >
+            <span>Nome: </span> <input type="text" id="inputNome">
+            <br>
+            <span>Idade: </span> <input type="text"  id="inputIdade">
+            <br>
+            <span>Plano: </span> <input type="text"  id="inputPlano">
+            <br>
+            <button type="reset" value="Reset" @click="adicionarPaciente()">Adicionar</button>
+        </form>
+        <hr>
+        <h4>Último paciente cadastrado: </h4>
+        <p v-if="pacientes.length > 0">
+           {{ultimoPaciente}}
+        </p>
+        <hr>
+        <h4>Pacientes do plano ouro: </h4>
+        <p v-for="paciente in pacientesPlanoOuro">{{paciente.nome}}</p>
+        <hr>
+        <h4>Pacientes:</h4>
+        <ul>
+            <li v-for="paciente in pacientes">
+                <p>
+                    Nome: {{paciente.nome}}
+                    <br>
+                    Idade: {{paciente.idade}}
+                    <br>
+                    Plano: {{paciente.plano}}
+                </p>
+            </li>
+        </ul>
+        
 
     </div>
     <script>
         const vm = new Vue ({
             el: '#app', // #para selecionar por id . para selecionar por class
             data: {
-                saudacao: true,
+                pacientes: [],
             },
             methods: {
-
+                adicionarPaciente() {
+                    this.pacientes.push({
+                        nome: inputNome.value,
+                        idade: inputIdade.value,
+                        plano: inputPlano.value
+                    });
+                },
+                
+            },
+            computed: {
+                ultimoPaciente() {
+                    let key = this.pacientes.length - 1; 
+                    let txt = '';
+                    txt += 'paciente: '+ this.pacientes[key].nome;
+                    txt += ',idade: ' + this.pacientes[key].idade;
+                    txt += ',plano: '+ this.pacientes[key].plano;  
+                    return txt
+                },
+                pacientesPlanoOuro() {
+                    return this.pacientes.filter(item => item.plano == 'Ouro');
+                },
             }
         }); // vm == vue model
     </script>
