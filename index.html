@@ -12,68 +12,51 @@
 </head>
 <body>
     <div id="app">
-        <h4>Adicionar paciente</h4>
-        <form >
-            <span>Nome: </span> <input type="text" id="inputNome">
-            <br>
-            <span>Idade: </span> <input type="text"  id="inputIdade">
-            <br>
-            <span>Plano: </span> <input type="text"  id="inputPlano">
-            <br>
-            <button type="reset" value="Reset" @click="adicionarPaciente()">Adicionar</button>
-        </form>
+        {{paciente}} 
+        <br>
+        <!--<input type="text" id="nome" :value="paciente" @keyup="setPaciente($event)">-->
+        <input type="text" v-model="paciente">
         <hr>
-        <h4>Último paciente cadastrado: </h4>
-        <p v-if="pacientes.length > 0">
-           {{ultimoPaciente}}
-        </p>
-        <hr>
-        <h4>Pacientes do plano ouro: </h4>
-        <p v-for="paciente in pacientesPlanoOuro">{{paciente.nome}}</p>
-        <hr>
-        <h4>Pacientes:</h4>
-        <ul>
-            <li v-for="paciente in pacientes">
-                <p>
-                    Nome: {{paciente.nome}}
-                    <br>
-                    Idade: {{paciente.idade}}
-                    <br>
-                    Plano: {{paciente.plano}}
-                </p>
-            </li>
-        </ul>
-        
+        <input type="radio" value="f" v-model="sexo">Feminino
+        <input type="radio" value="m" v-model="sexo">Masculino
+        <br>
+        {{sexo}}
+        <select v-model="plano">
+            <option value="" disabled>Selecione um plano</option>
+            <option value="1">Bronze</option>
+            <option value="2">Ouro</option>
+            <option value="3">Platina</option>
+            <option value="4">Diamante</option>
+        </select>
+        <br>
+        {{plano}}
+        <br>
+        <input type="checkbox" value="100" v-model="doencas"> Asma
+        <input type="checkbox" value="101" v-model="doencas"> Hipertensão
+        <input type="checkbox" value="102" v-model="doencas"> Covid-19
+        <input type="checkbox" value="103" v-model="doencas"> HIV/AIDS
+        <input type="checkbox" value="104" v-model="doencas"> Diabetes
+        <br>
+        {{doencas}}
+        <br>
 
     </div>
     <script>
         const vm = new Vue ({
             el: '#app', // #para selecionar por id . para selecionar por class
             data: {
-                pacientes: [],
+                paciente: "Daniel de Oliveira Trindade",
+                sexo: '',
+                plano: '',
+                doencas:[],
             },
             methods: {
-                adicionarPaciente() {
-                    this.pacientes.push({
-                        nome: inputNome.value,
-                        idade: inputIdade.value,
-                        plano: inputPlano.value
-                    });
-                },
-                
+                setPaciente(e) {
+                    this.paciente = e.target.value;
+                }
             },
             computed: {
-                ultimoPaciente() {
-                    let key = this.pacientes.length - 1; 
-                    let txt = '';
-                    txt += 'paciente: '+ this.pacientes[key].nome;
-                    txt += ',idade: ' + this.pacientes[key].idade;
-                    txt += ',plano: '+ this.pacientes[key].plano;  
-                    return txt
-                },
-                pacientesPlanoOuro() {
-                    return this.pacientes.filter(item => item.plano == 'Ouro');
-                },
+
             }
         }); // vm == vue model
     </script>
