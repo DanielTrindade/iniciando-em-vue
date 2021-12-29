@@ -12,104 +12,20 @@
 </head>
 <body>
     <div id="app">
-        <ul>
-            <li v-for="(comentario,chave) in comentarios" v-text="comentario.publicacao" :key="chave"></li>
-        </ul>
-        Comentário:
-        <br>
-        <input type="text" id="comment" style="font-size: 13px">
-        <br>
-        Id do comentário para modificar: 
-        <br>
-        <input type="text" id="identificador" style="width:22px;font-size: 13px">
-        <br>
-        <br>
-        <button @click="adicionarComentario()">Comentar</button>
-        <button @click="removerComentario()">Remover comentário</button>
-        <button @click="atualizarComentario()">Atualizar comentario</button>
-        <hr>
-        <ul>
-            <li v-for="(curso,chave) in cursos" v-text="chave + '-'+ curso"></li>
-        </ul>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Título</th>
-                    <th>Descrição</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="({titulo,descricao},chave) in cursos2">
-                    <td>{{chave}}</td>
-                    <td>{{titulo}}</td>
-                    <td>{{descricao}}</td>
-                </tr>
-            </tbody>
-        </table>
-        <hr>
-        <ul v-for="(publicacao,chave) in publicacoes" style="border: solid 1px" :key="publicacao.id">
-            <li>{{publicacao.publicacao}}</li>
-            <input type="text" id="comentario">
-        </ul>
-        <button @click="misturarPublicacoes()">misturar publicaçoes</button>
+        <template v-if="saudacao">
+            <h1>Boa-vindas</h1>
+            <p>Conteúdo a tag <strong> template</strong></p>
+        </template> 
 
     </div>
     <script>
         const vm = new Vue ({
             el: '#app', // #para selecionar por id . para selecionar por class
             data: {
-                cursos: ['laravel','vue','ruby on rails','c#','c++','c','JavaScript','Web completo'],
-                cursos2: {
-                    1000: {
-                        titulo: 'laravel',
-                        descricao: 'Domine o framework PHP mais poderoso do mundo'
-                    },
-                    1001: {
-                        titulo: 'Banco de dados',
-                        descricao: 'Aprenda os principais bancos de dados relacionais do mercado'
-                    }
-                },
-                publicacoes: [
-                    {id: 1, publicacao: 'publicacao 1'},
-                    {id: 2, publicacao: 'publicacao 2'},
-                    {id: 3, publicacao: 'publicacao 3'},
-                ],
-                comentarios: [
-                    {id: 1, publicacao: 'comentario 1'},
-                    {id: 2, publicacao: 'comentario 2'},
-                    {id: 3, publicacao: 'comentario 3'},
-                    {id: 4, publicacao: 'comentario 4'},
-                ],
-                tam: 4,
+                saudacao: true,
             },
             methods: {
-                misturarPublicacoes() {
-                    let misturado = [];
-                    misturado[0] = this.publicacoes[2];
-                    misturado[1] = this.publicacoes[0];
-                    misturado[2] = this.publicacoes[1];
-                    this.publicacoes = misturado;
-                },
-                adicionarComentario() {
-                    this.comentarios.push({
-                        id:this.tam + 1,
-                        publicacao: comment.value, 
-                    });
-                    this.tam++
-                },
-                removerComentario() {
-                    this.comentarios.pop();
-                },
-                atualizarComentario() {
-                    //this.$set(<array>,posicao para modificar, objeto)
-                    if(this.tam < identificador.value) {
-                        alert("O comentário não existe!");
-                    } else {
-                        this.$set(this.comentarios,identificador.value - 1,{id:identificador.value - 1,publicacao:comment.value});
-                    }
-                    console.log(this.comentarios)
-                } 
+
             }
         }); // vm == vue model
     </script>
