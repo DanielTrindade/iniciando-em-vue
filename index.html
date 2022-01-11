@@ -12,13 +12,51 @@
 </head>
 <body>
     <div id="app">
+<<<<<<< HEAD
         <span>Paciente:</span>  <input type="text" v-model="paciente">
+=======
+        {{paciente}} 
+        <br>
+        <!--<input type="text" id="nome" :value="paciente" @keyup="setPaciente($event)">-->
+        <input type="text" v-model="paciente">
+        <hr>
+        <input type="radio" value="f" v-model="sexo">Feminino
+        <input type="radio" value="m" v-model="sexo">Masculino
+        <br>
+        {{sexo}}
+        <select v-model="plano">
+            <option value="" disabled>Selecione um plano</option>
+            <option value="1">Bronze</option>
+            <option value="2">Ouro</option>
+            <option value="3">Platina</option>
+            <option value="4">Diamante</option>
+        </select>
+        <br>
+        {{plano}}
+        <br>
+        <input type="checkbox" value="100" v-model="doencas"> Asma
+        <input type="checkbox" value="101" v-model="doencas"> Hipertensão
+        <input type="checkbox" value="102" v-model="doencas"> Covid-19
+        <input type="checkbox" value="103" v-model="doencas"> HIV/AIDS
+        <input type="checkbox" value="104" v-model="doencas"> Diabetes
+        <br>
+        {{doencas}}
+        <br>
+
+>>>>>>> 4592a4d9e9cf7fb3db8535414e80b4e47d913668
     </div>
     <script>
         const vm = new Vue ({
             el: '#app', // #para selecionar por id . para selecionar por class
             data: {
+<<<<<<< HEAD
                 paciente: '',
+=======
+                paciente: "Daniel de Oliveira Trindade",
+                sexo: '',
+                plano: '',
+                doencas:[],
+>>>>>>> 4592a4d9e9cf7fb3db8535414e80b4e47d913668
             },
             methods: {
                 setPaciente(e) {
